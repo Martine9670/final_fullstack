@@ -1,0 +1,33 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card card-green shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">👤 Modifier mon profil </h2>
+
+          <%= form_for @user do |f| %>
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label" %>
+              <%= f.email_field :email, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password, "Mot de passe (laisser vide pour ne pas changer)", class: "form-label" %>
+              <%= f.password_field :password, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password_confirmation, "Confirmation du mot de passe", class: "form-label" %>
+              <%= f.password_field :password_confirmation, class: "form-control" %>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <%= f.submit "Mettre à jour mon profil", class: "btn btn-green" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
