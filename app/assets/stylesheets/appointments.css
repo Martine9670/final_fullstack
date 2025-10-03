@@ -1,0 +1,14 @@
+.card-green {
+  border: 2px solid #28a745;
+}
+
+.btn-green {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.btn-green:hover {
+  background-color: #218838;
+  color: white;
+}

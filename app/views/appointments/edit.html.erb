@@ -1,2 +1,30 @@
-<h1>Appointments#edit</h1>
-<p>Find me in app/views/appointments/edit.html.erb</p>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Modifier le rendez-vous 📅</h2>
+
+          <%= form_for @appointment do |f| %>
+            <div class="mb-3">
+              <%= f.label :date, "Date", class: "form-label" %>
+              <%= f.date_field :date, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :time, "Heure", class: "form-label" %>
+              <%= f.time_field :time, class: "form-control" %>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2">
+              <%= f.submit "Mettre à jour le rendez-vous", class: "btn btn-primary" %>
+              <%= link_to "Annuler", appointments_path, class: "btn btn-secondary" %>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

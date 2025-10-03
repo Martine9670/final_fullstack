@@ -1,2 +1,29 @@
-<h1>Appointments#index</h1>
-<p>Find me in app/views/appointments/index.html.erb</p>
+<div class="container my-5">
+  <h1 class="text-center mb-4">Mes rendez-vous 📅</h1>
+
+  <% if @appointments.any? %>
+    <div class="row g-3">
+      <% @appointments.each do |appointment| %>
+        <div class="col-md-4">
+          <div class="card shadow-sm border-success">
+            <div class="card-body">
+              <h5 class="card-title">Rendez-vous #<%= appointment.id %></h5>
+              <p class="card-text">
+                Date : <strong><%= appointment.date %></strong><br>
+                Heure : <strong><%= appointment.time.strftime("%H:%M") %></strong>
+              </p>
+              <div class="d-flex justify-content-between">
+                <%= link_to "Voir", appointment_path(appointment), class: "btn btn-sm btn-primary" %>
+                <%= link_to "Modifier", edit_appointment_path(appointment), class: "btn btn-sm btn-warning" %>
+                <%= button_to "Supprimer", appointment_path(appointment), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-sm btn-danger" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center">Vous n'avez pas encore de rendez-vous. <%= link_to "Prendre un rendez-vous", new_appointment_path, class: "btn btn-success" %></p>
+  <% end %>
+</div>
+
