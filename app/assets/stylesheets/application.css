@@ -2,6 +2,11 @@
  *= require home
  */
 
+ /*
+ *= require users
+ */
+
+
  /* Layout global */
 body {
   font-family: Arial, sans-serif;
