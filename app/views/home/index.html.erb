@@ -1,0 +1,19 @@
+<div class="text-center">
+  <h1 class="mb-3">Bienvenue sur la Ressourcerie en ligne 🌱</h1>
+  <p class="lead mb-4">Facilitez vos dons en planifiant une collecte à domicile.</p>
+
+  <% if user_signed_in? %>
+    <p class="mb-3">Connecté en tant que <strong><%= current_user.email %></strong></p>
+    <div class="d-flex justify-content-center gap-3">
+      <%= link_to "Voir mes rendez-vous", appointments_path, class: "btn btn-primary" %>
+      <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+    </div>
+  <% else %>
+    <div class="d-flex justify-content-center gap-3">
+      <%= link_to "Créer un compte", new_user_registration_path, class: "btn btn-success" %>
+      <%= link_to "Se connecter", new_user_session_path, class: "btn btn-outline-primary" %>
+    </div>
+  <% end %>
+</div>
+
+
