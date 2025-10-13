@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<script src="https://js.stripe.com/v3/"></script>
+<meta name="stripe-public-key" content="<%= ENV['STRIPE_PUBLIC_KEY'] %>">
   <head>
     <title>Ressourcerie en ligne</title>
     <%= csrf_meta_tags %>
@@ -28,7 +30,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <% if user_signed_in? %>
-                <li class="nav-item"></li><%= link_to "Mon profil", edit_user_path, class: "nav-link" %></li>
+                <li class="nav-item"><%= link_to "Mon profil", edit_user_path, class: "nav-link" %></li>
                 <li class="nav-item"><%= link_to "Mes rendez-vous", appointments_path, class: "nav-link" %></li>
                 <li class="nav-item"><%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "nav-link" %></li>
               <% else %>
