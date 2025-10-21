@@ -1,0 +1,14 @@
+<h1 class="text-2xl font-bold mb-4">Paiement de votre collecte</h1>
+
+<p class="mb-2">Merci de soutenir notre ressourcerie 💚</p>
+
+<p>
+  <strong>Date :</strong> <%= @appointment.date.strftime("%d/%m/%Y") %><br>
+  <strong>Montant :</strong> <%= number_to_currency(@appointment.total_price, unit: "€") %>
+</p>
+
+<%= form_with url: payments_path(appointment_id: @appointment.id), local: true do %>
+  <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+    Procéder au paiement
+  </button>
+<% end %>
