@@ -1,27 +1,34 @@
 Rails.application.routes.draw do
+  # Routes Appointments
   get "appointments/index"
   get "appointments/show"
   get "appointments/new"
   get "appointments/edit"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  # Page d’accueil
+  root "home#index"
 
-  # Defines the root path route ("/")
-  # root "posts#index"
-
-  root "home#index"   # page d’accueil
+  # Authentification
   devise_for :users
 
+  # Webhook Stripe
+  post '/stripe/webhook', to: 'stripe_webhooks#receive'
+
+  # Ressources principales
   resources :comments
   resources :appointments
   resource :user, only: [:edit, :update]
 
-
+  # Paiements Stripe
+  resources :payments, only: [:new, :create] do
+    collection do
+      get :success
+      get :cancel
+    end
+  end
 end
+
+
