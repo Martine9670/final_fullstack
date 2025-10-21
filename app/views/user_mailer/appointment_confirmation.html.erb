@@ -1,0 +1,16 @@
+<h1>Bonjour <%= @user.email %> 👋</h1>
+
+<p>Votre rendez-vous a bien été confirmé :</p>
+
+<ul>
+  <li>Date : <%= @appointment.date.strftime("%d/%m/%Y") if @appointment.date %></li>
+  <li>Heure : <%= @appointment.time.strftime("%H:%M") if @appointment.time %></li>
+  <li>Statut : <%= @appointment.status %></li>
+</ul>
+
+<p>Merci pour votre confiance,<br>L’équipe Final Fullstack</p>
+
+
+
+
+
