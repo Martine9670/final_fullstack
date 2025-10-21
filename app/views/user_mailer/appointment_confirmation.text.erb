@@ -1,0 +1,13 @@
+Bonjour <%= @user.email %>,
+
+Votre rendez-vous a été confirmé :
+
+- Date : <%= @appointment.date.strftime("%d/%m/%Y") if @appointment.date %>
+- Heure : <%= @appointment.time.strftime("%H:%M") if @appointment.time %>
+- Statut : <%= @appointment.status %>
+
+Merci de votre confiance !
+
+
+
+

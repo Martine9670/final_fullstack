@@ -1,62 +1,81 @@
+# app/controllers/appointments_controller.rb
 class AppointmentsController < ApplicationController
-  before_action :authenticate_user!            # l'utilisateur doit être connecté
+  before_action :authenticate_user!
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
 
-  # Affiche tous les rendez-vous de l'utilisateur connecté
+  # GET /appointments
   def index
     @appointments = current_user.appointments
   end
 
+  # GET /appointments/:id
   def show
-    @appointment = current_user.appointments.find(params[:id])
   end
 
-  # Formulaire pour créer un nouveau rendez-vous
+  # GET /appointments/new
   def new
-    @appointment = current_user.appointments.build
+    @appointment = Appointment.new
   end
 
-  # Création d'un rendez-vous
+  # POST /appointments
   def create
     @appointment = current_user.appointments.build(appointment_params)
+
     if @appointment.save
-      redirect_to appointments_path, notice: "Rendez-vous créé avec succès !"
+      # Création de la session Stripe
+      session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        mode: 'payment',
+        success_url: payments_success_url + "?appointment_id=#{@appointment.id}&session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: payments_cancel_url,
+        line_items: [{
+          price_data: {
+            currency: 'eur',
+            product_data: {
+              name: "Rendez-vous du #{@appointment.date.strftime('%d/%m/%Y')} à #{@appointment.time.strftime('%H:%M')}"
+            },
+            unit_amount: 5000, # 50 EUR en centimes
+          },
+          quantity: 1
+        }]
+      )
+
+      # Redirection vers Stripe Checkout
+      redirect_to session.url, allow_other_host: true
     else
-      render :new, alert: "Erreur lors de la création du rendez-vous."
+      flash.now[:alert] = "Erreur lors de la création du rendez-vous."
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # Formulaire pour éditer un rendez-vous existant
+  # GET /appointments/:id/edit
   def edit
-    @appointment = current_user.appointments.find(params[:id])
   end
 
-  # Mise à jour d'un rendez-vous
+  # PATCH/PUT /appointments/:id
   def update
-    @appointment = current_user.appointments.find(params[:id])
     if @appointment.update(appointment_params)
-      redirect_to appointments_path, notice: "Rendez-vous mis à jour avec succès !"
+      redirect_to @appointment, notice: "Rendez-vous mis à jour avec succès !"
     else
-      render :edit, alert: "Erreur lors de la mise à jour du rendez-vous."
+      flash.now[:alert] = "Erreur lors de la mise à jour du rendez-vous."
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # Suppression d'un rendez-vous
+  # DELETE /appointments/:id
   def destroy
     @appointment.destroy
-    redirect_to appointments_path, notice: "Rendez-vous supprimé !"
+    redirect_to appointments_path, notice: "Rendez-vous supprimé."
   end
 
   private
 
-  # Récupère le rendez-vous courant de l'utilisateur connecté
   def set_appointment
     @appointment = current_user.appointments.find(params[:id])
   end
 
-  # Paramètres autorisés pour créer ou mettre à jour un rendez-vous
   def appointment_params
-    params.require(:appointment).permit(:date, :time, :notes)
+    params.require(:appointment).permit(:date, :time)
   end
 end
 

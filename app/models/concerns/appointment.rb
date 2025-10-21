@@ -1,7 +1,16 @@
 class Appointment < ApplicationRecord
   belongs_to :user
 
-  # ici tu peux ajouter des validations si tu veux
   validates :date, presence: true
   validates :time, presence: true
+
+  after_create :send_emails
+
+  private
+
+  def send_emails
+    UserMailer.appointment_confirmation(self).deliver_now
+    AdminMailer.new_appointment_notification(self).deliver_now
+  end
 end
+
