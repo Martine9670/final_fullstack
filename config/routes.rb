@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'dashboard', to: 'dashboard#index'
+  end
+
   # Routes Appointments
   get "appointments/index"
   get "appointments/show"
@@ -30,5 +34,3 @@ Rails.application.routes.draw do
     end
   end
 end
-
-

@@ -1,0 +1,31 @@
+<div class="container my-5">
+  <h1 class="mb-4">Tableau de bord Admin</h1>
+
+  <p>Bienvenue, <%= current_user.email %> 👋</p>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h2>Utilisateurs</h2>
+      <ul class="list-group">
+        <% @users.each do |user| %>
+          <li class="list-group-item">
+            <%= user.email %>
+            <% if user.admin? %>⭐<% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+      <h2>Rendez-vous</h2>
+      <ul class="list-group">
+        <% @appointments.each do |a| %>
+          <li class="list-group-item">
+            <%= a.date.strftime("%d/%m/%Y") %> - <%= a.start_time&.strftime("%H:%M") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
