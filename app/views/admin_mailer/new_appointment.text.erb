@@ -1,4 +1,5 @@
 Un nouveau rendez-vous a été pris :
 
-Utilisateur : <%= @user.name %> (<%= @user.email %>)
+Utilisateur : <%= @user.try(:name) || @user.email %>
 Date : <%= @date %> à <%= @time %>
+

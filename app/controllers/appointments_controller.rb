@@ -22,6 +22,13 @@ class AppointmentsController < ApplicationController
     @appointment = current_user.appointments.build(appointment_params)
 
     if @appointment.save
+      # 💌 Notification par mail à l’administrateur
+      begin
+        AdminMailer.new_appointment(@appointment).deliver_now
+      rescue => e
+        Rails.logger.error "❌ Erreur générale d’envoi de mail: #{e.message}"
+      end
+
       # 🚀 Création de la session Stripe Checkout
       stripe_session = Stripe::Checkout::Session.create(
         payment_method_types: ['card'],
@@ -36,8 +43,8 @@ class AppointmentsController < ApplicationController
           },
           quantity: 1
         }],
-        success_url: payments_success_url + "?appointment_id=#{@appointment.id}&session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: payments_cancel_url
+        success_url: success_payments_url(appointment_id: @appointment.id) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url: cancel_payments_url
       )
 
       # 🔄 Redirection directe vers Stripe Checkout
