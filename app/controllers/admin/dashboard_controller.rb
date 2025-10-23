@@ -7,6 +7,15 @@ class Admin::DashboardController < ApplicationController
     @appointments = Appointment.all
   end
 
+  def promote
+    user = User.find(params[:id])
+    if user.update(admin: true)
+      redirect_to admin_dashboard_path, notice: "#{user.email} est maintenant admin 👑"
+    else
+      redirect_to admin_dashboard_path, alert: "Impossible de promouvoir cet utilisateur."
+    end
+  end
+
   private
 
   def check_admin
@@ -15,4 +24,3 @@ class Admin::DashboardController < ApplicationController
     end
   end
 end
-
