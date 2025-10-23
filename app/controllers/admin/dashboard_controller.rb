@@ -4,15 +4,19 @@ class Admin::DashboardController < ApplicationController
 
   def index
     @users = User.all
-    @appointments = Appointment.all
+    @appointments = Appointment.all.order(date: :asc, start_time: :asc)
   end
 
-  def promote
+  # Toggle admin / non-admin
+  def toggle_admin
     user = User.find(params[:id])
-    if user.update(admin: true)
-      redirect_to admin_dashboard_path, notice: "#{user.email} est maintenant admin 👑"
+
+    if user != current_user
+      user.update(admin: !user.admin?)
+      status = user.admin? ? "admin 👑" : "simple utilisateur"
+      redirect_to admin_dashboard_path, notice: "#{user.email} est maintenant #{status}"
     else
-      redirect_to admin_dashboard_path, alert: "Impossible de promouvoir cet utilisateur."
+      redirect_to admin_dashboard_path, alert: "Vous ne pouvez pas modifier vos propres droits."
     end
   end
 

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   namespace :admin do
     get 'dashboard', to: 'dashboard#index'
-    patch 'promote/:id', to: 'dashboard#promote', as: 'promote_user'
+    
+    # Toggle admin status : promouvoir ou dépromouvoir
+    patch 'users/:id/toggle_admin', to: 'dashboard#toggle_admin', as: 'toggle_admin_user'
   end
 
   # Routes Appointments
