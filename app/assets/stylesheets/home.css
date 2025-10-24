@@ -57,12 +57,12 @@
 }
 
 .btn-outline {
-  border: 2px solid #007bff;
-  color: #007bff;
+  border: 2px solid #138b63;
+  color: #138b63;
   background: transparent;
 }
 
 .btn-outline:hover {
-  background-color: #007bff;
+  background-color: #169e38;
   color: white;
 }

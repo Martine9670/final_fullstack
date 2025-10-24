@@ -48,7 +48,7 @@
             <h5 class="card-title"><%= review.title %></h5>
             <p class="card-text"><%= truncate(review.content, length: 100) %></p>
             <p class="text-muted">⭐️ <%= review.rating %> / 5 — par <%= review.user.email.split('@').first %></p>
-            <%= link_to "Lire plus", review_path(review), class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Lire plus", review_path(review), class: "btn btn-sm btn-outline" %>
           </div>
         </div>
       </div>
