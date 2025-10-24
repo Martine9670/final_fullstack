@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin do
     get 'dashboard', to: 'dashboard#index'
-    
-    # Toggle admin status : promouvoir ou dépromouvoir
     patch 'users/:id/toggle_admin', to: 'dashboard#toggle_admin', as: 'toggle_admin_user'
   end
 
@@ -36,4 +34,14 @@ Rails.application.routes.draw do
       get :cancel
     end
   end
+
+  # 🌟 Ajout des avis (reviews) + likes + commentaires imbriqués
+  resources :reviews, only: [:index, :show, :new, :create, :destroy] do
+    # Route pour liker/unliker un avis
+    post "like", to: "likes#toggle"
+
+    # Routes pour les commentaires liés à un avis
+    resources :comments, only: [:create]
+  end
 end
+

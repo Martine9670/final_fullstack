@@ -1,0 +1,17 @@
+<div class="container my-5">
+  <h2 class="mb-4">Tous les avis</h2>
+  <div class="row">
+    <% @reviews.each do |review| %>
+      <div class="col-md-4">
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><%= review.title %></h5>
+            <p class="card-text"><%= truncate(review.content, length: 120) %></p>
+            <p class="text-muted">⭐️ <%= review.rating %> / 5 — par <%= review.user.email.split('@').first %></p>
+            <%= link_to "Lire plus", review_path(review), class: "btn btn-sm btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
