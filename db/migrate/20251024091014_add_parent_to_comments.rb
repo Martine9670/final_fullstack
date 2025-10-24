@@ -1,4 +1,4 @@
-class AddParentIdColumnToComments < ActiveRecord::Migration[8.0]
+class AddParentToComments < ActiveRecord::Migration[8.0]
   def change
     # On ajoute la colonne manuellement pour éviter les contraintes NOT NULL
     add_column :comments, :parent_id, :integer, null: true
