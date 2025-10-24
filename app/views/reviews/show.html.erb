@@ -1,0 +1,64 @@
+<div class="container my-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="card-title"><%= @review.title %></h3>
+      <p class="card-text"><%= simple_format(@review.content) %></p>
+      <p class="text-muted">⭐️ <%= @review.rating %> / 5 — par <%= @review.user.email.split('@').first %></p>
+
+      <!-- ❤️ Section Like -->
+      <% if user_signed_in? %>
+        <%= button_to review_like_path(@review),
+                      method: :post,
+                      class: "btn btn-outline-danger" do %>
+          <% if @review.liked_by?(current_user) %>
+            ❤️ Retirer le like (<%= @review.likes.count %>)
+          <% else %>
+            🤍 Liker (<%= @review.likes.count %>)
+          <% end %>
+        <% end %>
+      <% else %>
+        <p class="text-muted">Connectez-vous pour liker cet avis ❤️</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- 💬 Section Commentaires -->
+  <div class="mt-4">
+    <h4>Commentaires (<%= @review.comments.count %>)</h4>
+
+    <% @review.comments.each do |comment| %>
+      <div class="card my-2">
+        <div class="card-body">
+          <p><%= comment.content %></p>
+          <small class="text-muted">par <%= comment.user.email.split('@').first %></small>
+        </div>
+      </div>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <%= form_with(model: [@review, Comment.new], local: true, class: "mt-3") do |f| %>
+        <div class="mb-3">
+          <%= f.text_area :content, class: "form-control", rows: 3, placeholder: "Écrire un commentaire..." %>
+        </div>
+        <%= f.submit "Commenter", class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <p class="text-muted mt-3">Connectez-vous pour commenter 💬</p>
+    <% end %>
+  </div>
+
+  <% if current_user&.admin? %>
+    <div class="mt-3">
+      <%= button_to "Supprimer l’avis", review_path(@review),
+                    method: :delete,
+                    data: { confirm: "Supprimer cet avis ?" },
+                    class: "btn btn-danger" %>
+    </div>
+  <% end %>
+
+  <div class="mt-4">
+    <%= link_to "← Retour aux avis", reviews_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>
+
+

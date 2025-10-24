@@ -22,26 +22,33 @@ class AppointmentsController < ApplicationController
     @appointment = current_user.appointments.build(appointment_params)
 
     if @appointment.save
-      # Création de la session Stripe
-      session = Stripe::Checkout::Session.create(
+      # 💌 Notification par mail à l’administrateur
+      begin
+        AdminMailer.new_appointment(@appointment).deliver_now
+      rescue => e
+        Rails.logger.error "❌ Erreur générale d’envoi de mail: #{e.message}"
+      end
+
+      # 🚀 Création de la session Stripe Checkout
+      stripe_session = Stripe::Checkout::Session.create(
         payment_method_types: ['card'],
         mode: 'payment',
-        success_url: payments_success_url + "?appointment_id=#{@appointment.id}&session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: payments_cancel_url,
         line_items: [{
           price_data: {
             currency: 'eur',
             product_data: {
               name: "Rendez-vous du #{@appointment.date.strftime('%d/%m/%Y')} à #{@appointment.time.strftime('%H:%M')}"
             },
-            unit_amount: 5000, # 50 EUR en centimes
+            unit_amount: 5000, # 💶 50 EUR en centimes
           },
           quantity: 1
-        }]
+        }],
+        success_url: success_payments_url(appointment_id: @appointment.id) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url: cancel_payments_url
       )
 
-      # Redirection vers Stripe Checkout
-      redirect_to session.url, allow_other_host: true
+      # 🔄 Redirection directe vers Stripe Checkout
+      redirect_to stripe_session.url, allow_other_host: true
     else
       flash.now[:alert] = "Erreur lors de la création du rendez-vous."
       render :new, status: :unprocessable_entity
@@ -78,4 +85,5 @@ class AppointmentsController < ApplicationController
     params.require(:appointment).permit(:date, :time)
   end
 end
+
 
