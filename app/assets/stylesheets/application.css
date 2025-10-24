@@ -1,9 +1,8 @@
- /*
+/*
  *= require home
- */
-
- /*
  *= require users
+ *= require admin_dashboard
+ *= require_self
  */
 
 

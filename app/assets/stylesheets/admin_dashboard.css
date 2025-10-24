@@ -1,0 +1,158 @@
+/* ================================
+   DASHBOARD ADMIN – THEME MODERNE
+   ================================ */
+
+.admin-dashboard {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #333;
+}
+
+/* Titres */
+.admin-dashboard h1 {
+  color: #2e7d32;
+  letter-spacing: 0.5px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.admin-dashboard h3 {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Cartes */
+.admin-dashboard .card {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fefcf3;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-dashboard .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* Header cartes */
+.admin-dashboard .card-header {
+  font-size: 1.1rem;
+  padding: 0.75rem 1rem;
+  background-color: #c8e6c9;
+  color: #1b5e20;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Listes avec zebra stripes */
+.admin-dashboard .list-group-item {
+  border: none;
+  border-bottom: 1px solid #e0e0d1;
+  padding: 0.9rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.admin-dashboard .list-group-item:nth-child(odd) {
+  background-color: #fefcf3;
+}
+
+.admin-dashboard .list-group-item:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.admin-dashboard .list-group-item:hover {
+  background-color: #e0f2e9;
+}
+
+/* Badge admin */
+.admin-dashboard .badge {
+  background-color: #ffdd57;
+  color: #3e2723;
+  font-weight: 600;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* Boutons */
+.admin-dashboard .btn-outline-green {
+  border-color: #2e7d32;
+  color: #2e7d32;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.admin-dashboard .btn-outline-green:hover {
+  background-color: #2e7d32;
+  color: #fff;
+}
+
+/* Icônes */
+.admin-dashboard .bi-person-circle,
+.admin-dashboard .bi-calendar-event,
+.admin-dashboard .bi-clock,
+.admin-dashboard .bi-envelope {
+  margin-right: 0.3rem;
+  font-size: 1.1rem;
+  color: #2e7d32;
+}
+
+/* Texte secondaire */
+.admin-dashboard .text-muted.small {
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-dashboard .card-header {
+    font-size: 1rem;
+  }
+
+  .admin-dashboard .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ================================
+   STATISTIQUES RAPIDES – DASHBOARD MODERNE
+   ================================ */
+
+.admin-dashboard .stats-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-dashboard .stat-card {
+  flex: 1;
+  min-width: 120px;
+  background-color: #fefcf3;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-dashboard .stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.admin-dashboard .stat-card .stat-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #198754; /* accent vert */
+  margin-top: 0.25rem;
+}
+
+.admin-dashboard .stat-card .stat-label {
+  font-size: 0.95rem;
+  color: #555;
+}
