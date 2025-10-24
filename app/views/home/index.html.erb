@@ -2,6 +2,19 @@
   <h1 class="mb-3">Bienvenue sur la Ressourcerie en ligne 🌱</h1>
   <p class="lead mb-4">Facilitez vos dons en planifiant une collecte à domicile.</p>
 
+  <!-- 💰 Carte prix collecte -->
+  <div class="d-flex justify-content-center mb-4">
+    <div class="card shadow-sm border-success" style="max-width: 22rem;">
+      <div class="card-body">
+        <h5 class="card-title">Prix d’une collecte</h5>
+        <p class="card-text fs-4 fw-bold text-success mb-1">50,00 €</p>
+        <p class="text-muted mb-0">Tarif unique, sans surprise ! 
+        <br> 
+        “Ce tarif nous permet de financer la logistique et la remise en état des objets récupérés.”</p>
+      </div>
+    </div>
+  </div>
+
   <% if user_signed_in? %>
     <p class="mb-3">Connecté en tant que <strong><%= current_user.email %></strong></p>
     <div class="d-flex justify-content-center gap-3">

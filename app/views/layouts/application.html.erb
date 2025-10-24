@@ -12,8 +12,9 @@
 
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "home", media: "all", "data-turbo-track": "reload" if controller_name == "home" %>
-        <%= stylesheet_link_tag "users", media: "all", "data-turbo-track": "reload" if controller_name == "users" %>
-
+    <%= stylesheet_link_tag "users", media: "all", "data-turbo-track": "reload" if controller_name == "users" %>
+    <%= stylesheet_link_tag "admin_dashboard", media: "all", "data-turbo-track": "reload" if controller_name == "dashboard" %>
+    <%= stylesheet_link_tag "appointments", media: "all", "data-turbo-track": "reload" if controller_name == "appointments" %>
 
     <%= javascript_importmap_tags %>
   </head>
