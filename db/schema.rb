@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_24_091014) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_27_084404) do
   create_table "appointments", force: :cascade do |t|
     t.date "date"
     t.time "time"
@@ -21,6 +21,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_24_091014) do
     t.integer "price_cents"
     t.boolean "paid"
     t.datetime "start_time"
+    t.text "description"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 

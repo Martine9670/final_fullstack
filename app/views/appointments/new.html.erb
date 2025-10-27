@@ -1,25 +1,28 @@
 <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card card-green shadow-sm">
+      <div class="card shadow-sm">
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Prendre rendez-vous 📅</h2>
 
           <%= form_for @appointment do |f| %>
             <div class="mb-3">
-              <%= f.label :date, class: "form-label" %>
-              <%= f.date_field :date, class: "form-control" %>
+              <%= f.label :date, "Date du rendez-vous", class: "form-label" %>
+              <%= f.date_field :date, class: "form-control", required: true %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :time, class: "form-label" %>
-              <%= f.time_field :time, class: "form-control" %>
+              <%= f.label :start_time, "Heure du rendez-vous", class: "form-label" %>
+              <%= f.time_field :start_time, class: "form-control", required: true %>
             </div>
 
-            <!-- Si tu veux d’autres champs, ajoute ici -->
+            <div class="mb-3">
+              <%= f.label :description, "Description", class: "form-label" %>
+              <%= f.text_area :description, class: "form-control", rows: 3, placeholder: "Ex: discuter de mon projet..." %>
+            </div>
 
-            <div class="d-flex justify-content-center">
-              <%= f.submit "Confirmer le rendez-vous", class: "btn btn-green" %>
+            <div class="text-center">
+              <%= f.submit "Confirmer le rendez-vous", class: "btn btn-primary" %>
             </div>
           <% end %>
         </div>
