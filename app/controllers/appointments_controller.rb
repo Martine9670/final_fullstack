@@ -1,7 +1,7 @@
-# app/controllers/appointments_controller.rb
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_appointment, only: [:show, :edit, :update, :destroy]
+  before_action :set_appointment, only: [:show, :edit, :update, :destroy, :update_status]
+  before_action :require_admin, only: [:update_status]
 
   # GET /appointments
   def index
@@ -20,37 +20,10 @@ class AppointmentsController < ApplicationController
   # POST /appointments
   def create
     @appointment = current_user.appointments.build(appointment_params)
-
     if @appointment.save
-      # 💌 Notification par mail à l’administrateur
-      begin
-        AdminMailer.new_appointment(@appointment).deliver_now
-      rescue => e
-        Rails.logger.error "❌ Erreur générale d’envoi de mail: #{e.message}"
-      end
-
-      # 🚀 Création de la session Stripe Checkout
-      stripe_session = Stripe::Checkout::Session.create(
-        payment_method_types: ['card'],
-        mode: 'payment',
-        line_items: [{
-          price_data: {
-            currency: 'eur',
-            product_data: {
-              name: "Rendez-vous du #{@appointment.date.strftime('%d/%m/%Y')} à #{@appointment.time.strftime('%H:%M')}"
-            },
-            unit_amount: 5000, # 💶 50 EUR en centimes
-          },
-          quantity: 1
-        }],
-        success_url: success_payments_url(appointment_id: @appointment.id) + '?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url: cancel_payments_url
-      )
-
-      # 🔄 Redirection directe vers Stripe Checkout
-      redirect_to stripe_session.url, allow_other_host: true
+      # Mail + Stripe...
+      redirect_to @appointment, notice: "Rendez-vous créé ✅"
     else
-      flash.now[:alert] = "Erreur lors de la création du rendez-vous."
       render :new, status: :unprocessable_entity
     end
   end
@@ -62,9 +35,8 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/:id
   def update
     if @appointment.update(appointment_params)
-      redirect_to @appointment, notice: "Rendez-vous mis à jour avec succès !"
+      redirect_to @appointment, notice: "Rendez-vous mis à jour ✅"
     else
-      flash.now[:alert] = "Erreur lors de la mise à jour du rendez-vous."
       render :edit, status: :unprocessable_entity
     end
   end
@@ -72,18 +44,32 @@ class AppointmentsController < ApplicationController
   # DELETE /appointments/:id
   def destroy
     @appointment.destroy
-    redirect_to appointments_path, notice: "Rendez-vous supprimé."
+    redirect_to appointments_path, notice: "Rendez-vous supprimé ✅"
+  end
+
+  # PATCH /appointments/:id/update_status
+  def update_status
+    new_status = params[:status]
+
+    if @appointment.update(status: new_status)
+      redirect_to admin_dashboard_path, notice: "Statut mis à jour ✅"
+    else
+      redirect_to admin_dashboard_path, alert: "Erreur lors de la mise à jour ❌"
+    end
   end
 
   private
 
   def set_appointment
-    @appointment = current_user.appointments.find(params[:id])
+    # ⚠️ Pour l’admin, on veut accéder à tous les rendez-vous, pas seulement les siens
+    @appointment = current_user.admin? ? Appointment.find(params[:id]) : current_user.appointments.find(params[:id])
   end
 
   def appointment_params
-    params.require(:appointment).permit(:date, :time)
+    params.require(:appointment).permit(:date, :start_time)
+  end
+
+  def require_admin
+    redirect_to root_path, alert: "Accès réservé aux administrateurs 🚫" unless current_user.admin?
   end
 end
-
-

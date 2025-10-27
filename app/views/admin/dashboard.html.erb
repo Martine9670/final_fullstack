@@ -9,10 +9,11 @@
       <h3>Utilisateurs</h3>
       <ul class="list-group">
         <% @users.each do |user| %>
-          <li class="list-group-item">
-            <%= user.email %>
-            <% if user.admin? %>⭐<% end %>
-            <!-- Bouton pour promouvoir/dépromouvoir -->
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+              <%= user.email %>
+              <% if user.admin? %>⭐<% end %>
+            </span>
             <% unless user == current_user %>
               <%= button_to (user.admin? ? "Retirer admin" : "Promouvoir admin"), toggle_admin_user_path(user), method: :patch, class: "btn btn-sm btn-warning ms-2" %>
             <% end %>
@@ -24,17 +25,41 @@
     <!-- Section Rendez-vous -->
     <div class="col-md-6">
       <h3>Rendez-vous</h3>
-      <ul class="list-group">
+      <ul class="list-group list-group-flush">
         <% @appointments.each do |appt| %>
-          <li class="list-group-item">
-            <strong>Date :</strong> <%= appt.date&.strftime("%d/%m/%Y") || "Non précisée" %> - 
-            <strong>Heure :</strong> <%= appt.start_time&.strftime("%H:%M") || "Non précisée" %> 
-            (<%= appt.user&.email || "Utilisateur supprimé" %>)
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <!-- Partie cliquable vers show -->
+            <div>
+              <%= link_to appointment_path(appt), class: "text-decoration-none text-dark" do %>
+                <strong><%= appt.date.strftime("%d/%m/%Y") %></strong> —
+                <%= appt.start_time&.strftime("%H:%M") || "Non précisée" %>
+                (<%= appt.user.email %>)
+              <% end %>
+            </div>
+
+            <!-- Badges + boutons -->
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge 
+                <%= case appt.status
+                    when "pending" then "bg-warning text-dark"
+                    when "confirmed" then "bg-success"
+                    when "completed" then "bg-secondary"
+                    else "bg-info text-dark"
+                    end %>">
+                <%= appt.status.capitalize %>
+              </span>
+
+              <% if appt.status == "pending" %>
+                <%= button_to "Confirmer", update_status_appointment_path(appt, status: "confirmed"), 
+                      method: :patch, class: "btn btn-sm btn-outline-success" %>
+              <% elsif appt.status == "confirmed" %>
+                <%= button_to "Terminer", update_status_appointment_path(appt, status: "completed"), 
+                      method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+              <% end %>
+            </div>
           </li>
         <% end %>
       </ul>
     </div>
   </div>
 </div>
-
-

@@ -24,7 +24,11 @@ Rails.application.routes.draw do
 
   # Ressources principales
   resources :comments
-  resources :appointments
+  resources :appointments do
+    member do
+      patch :update_status
+    end
+  end
   resource :user, only: [:edit, :update]
 
   # Paiements Stripe

@@ -156,3 +156,21 @@
   font-size: 0.95rem;
   color: #555;
 }
+
+/* ======== STATUTS RENDEZ-VOUS ======== */
+.badge.bg-warning.text-dark {
+  background-color: #ffe082 !important;
+}
+
+.badge.bg-success {
+  background-color: #81c784 !important;
+}
+
+.badge.bg-secondary {
+  background-color: #90a4ae !important;
+}
+
+.badge.bg-info.text-dark {
+  background-color: #64b5f6 !important;
+  color: #0d47a1 !important;
+}

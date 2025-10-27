@@ -4,7 +4,7 @@ class AdminController < ApplicationController
 
   def dashboard
     @users = User.all
-    @appointments = Appointment.all
+    @appointments = Appointment.includes(:user).all
   end
 
   private
