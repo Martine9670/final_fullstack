@@ -5,8 +5,9 @@
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Détails du rendez-vous 📅</h2>
 
-          <p><strong>Date :</strong> <%= @appointment.date.strftime("%d/%m/%Y") %></p>
-          <p><strong>Heure :</strong> <%= @appointment.time.strftime("%H:%M") %></p>
+          <p><strong>Date :</strong> <%= @appointment.date.strftime("%d/%m/%Y") if @appointment.date %></p>
+          <p><strong>Heure :</strong> <%= @appointment.start_time.strftime("%H:%M") if @appointment.start_time %></p>
+          <p><strong>Description :</strong> <%= @appointment.description.present? ? @appointment.description : "Aucune description" %></p>
 
           <div class="d-flex justify-content-center gap-2 mt-4">
             <%= link_to "Modifier", edit_appointment_path(@appointment), class: "btn btn-primary" %>
