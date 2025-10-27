@@ -3,8 +3,7 @@
 class Appointment < ApplicationRecord
   belongs_to :user
 
-  validates :date, presence: true
-  validates :time, presence: true
+  validates :date, :start_time, :description, presence: true
 
   after_create :send_emails
 

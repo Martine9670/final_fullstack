@@ -8,10 +8,10 @@
           <div class="card shadow-sm border-success">
             <div class="card-body">
               <h5 class="card-title">Rendez-vous #<%= appointment.id %></h5>
-              <p class="card-text">
-                Date : <strong><%= appointment.date %></strong><br>
-                Heure : <strong><%= appointment.time.strftime("%H:%M") %></strong>
-              </p>
+<p class="card-text">
+  Date : <strong><%= appointment.date.strftime("%d/%m/%Y") if appointment.date %></strong><br>
+  Heure : <strong><%= appointment.start_time.strftime("%H:%M") if appointment.start_time %></strong>
+</p>
               <div class="d-flex justify-content-between">
                 <%= link_to "Voir", appointment_path(appointment), class: "btn btn-sm btn-primary" %>
                 <%= link_to "Modifier", edit_appointment_path(appointment), class: "btn btn-sm btn-warning" %>
