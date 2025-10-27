@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <!-- Rendez-vous -->
+<!-- Rendez-vous -->
     <div class="col-md-6">
       <div class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-primary text-white fw-bold text-center">
@@ -63,15 +63,39 @@
         </div>
         <ul class="list-group list-group-flush">
           <% @appointments.each do |appt| %>
-            <li class="list-group-item">
-              <strong><%= appt.date.strftime("%d/%m/%Y") %></strong> —
-              <%= appt.start_time&.strftime("%H:%M") || "Non précisée" %>
-              <span class="text-muted small">(<%= appt.user.email %>)</span>
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+                onclick="window.location='<%= appointment_path(appt) %>'" 
+                style="cursor: pointer;">
+              <div>
+                <strong><%= appt.date.strftime("%d/%m/%Y") %></strong> —
+                <%= appt.start_time&.strftime("%H:%M") || "Non précisée" %>
+                <span class="text-muted small">(<%= appt.user.email %>)</span>
+              </div>
+
+              <!-- Badges + boutons -->
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge
+                  <%= case appt.status
+                      when "pending" then "bg-warning text-dark"
+                      when "confirmed" then "bg-success"
+                      when "completed" then "bg-secondary"
+                      else "bg-info text-dark"
+                      end %>">
+                  <%= appt.status.capitalize %>
+                </span>
+
+                <% if appt.status == "pending" %>
+                  <%= button_to "Confirmer", update_status_appointment_path(appt, status: "confirmed"),
+                        method: :patch, class: "btn btn-outline-success btn-sm", form: { data: { turbo: false } } %>
+                <% elsif appt.status == "confirmed" %>
+                  <%= button_to "Terminer", update_status_appointment_path(appt, status: "completed"),
+                        method: :patch, class: "btn btn-outline-secondary btn-sm", form: { data: { turbo: false } } %>
+                <% end %>
+              </div>
             </li>
           <% end %>
         </ul>
       </div>
     </div>
-
   </div>
 </div>
