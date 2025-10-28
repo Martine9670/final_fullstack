@@ -1,0 +1,38 @@
+/* Session Devise */
+
+.card-green {
+  border-top: 4px solid #28a745;
+  border-radius: 1rem;
+}
+
+.btn-green {
+  background-color: #28a745;
+  color: white;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-green:hover {
+  background-color: #218838;
+}
+
+.card-title {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
