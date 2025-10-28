@@ -1,24 +1,60 @@
-# README
+📦 Reuse Center Collection App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+🚀 Executive Summary
 
-Things you may want to cover:
+This web application is designed for a local reuse center, making home donation collections easy and fully digital.
 
-* Ruby version
+Users can book a collection slot online.
 
-* System dependencies
+Fixed fee: €50 per collection, covering all logistical costs.
 
-* Configuration
+🎯 Project Objectives
 
-* Database creation
+Main goals of the project:
 
-* Database initialization
+Simplify the user experience: Allow users to schedule a collection in just a few clicks.
 
-* How to run the test suite
+Optimize collection management: Provide a centralized dashboard for the reuse center to track appointments.
 
-* Services (job queues, cache servers, search engines, etc.)
+Flexible payment options: Users can pay online via Stripe or in-person on collection day.
 
-* Deployment instructions
+Support the circular economy: Encourage reuse of goods and reduce waste.
 
-* ...
+✨ Key Features
+1️⃣ Appointment Booking
+
+Select date and time for home collection.
+
+Real-time availability confirmation.
+
+2️⃣ Payment
+
+Online payment: Secure integration with Stripe.
+
+In-person payment: Option to pay on the day of collection.
+
+3️⃣ Reuse Center Dashboard
+
+View scheduled appointments easily.
+
+Track payments (online or pending).
+
+💡 Added Value
+
+Benefits for all stakeholders:
+
+Users: Quick, simple, and accessible way to donate items.
+
+Reuse center: Streamlined logistics and organized revenue.
+
+Society: Contributes to the circular economy and reduces waste.
+
+👩‍💻 Project Team
+
+Developed by Martine PINNA and Johann RUELLE, collaborating via pair programming and task distribution.
+
+Built with modern, robust, and secure technologies for scalability and maintainability.
+
+📌 Conclusion
+
+This application aims to become the central tool for managing donations at the reuse center, offering a smooth and intuitive user experience while supporting social and environmental impact.
