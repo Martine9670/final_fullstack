@@ -1,4 +1,6 @@
 /*
+ *= require session
+ *= require registration
  *= require hero
  *= require home
  *= require users
