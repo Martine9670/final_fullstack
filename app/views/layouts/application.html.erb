@@ -15,6 +15,7 @@
     <%= stylesheet_link_tag "users", media: "all", "data-turbo-track": "reload" if controller_name == "users" %>
     <%= stylesheet_link_tag "admin_dashboard", media: "all", "data-turbo-track": "reload" if controller_name == "dashboard" %>
     <%= stylesheet_link_tag "appointments", media: "all", "data-turbo-track": "reload" if controller_name == "appointments" %>
+    <%= stylesheet_link_tag "hero", media: "all", "data-turbo-track": "reload" %>
 
     <%= javascript_importmap_tags %>
   </head>
@@ -28,6 +29,11 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
+
+          <% if user_signed_in? %>
+            <p class="mb-3">Connecté en tant que <strong><%= current_user.email %></strong></p>
+          <% end %>
+          
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <% if user_signed_in? && current_user.admin? %>
@@ -49,6 +55,26 @@
         </div>
       </nav>
     </header>
+
+    <% if controller_name == "home" %>
+      <!-- 🌄 Hero Section -->
+      <section class="hero py-5 mb-5 shadow-sm">
+        <div class="text-center">
+          <div class="hero-overlay">
+            <h1 class="display-5 fw-bold mb-3">Donnez une seconde vie à vos objets 🌱</h1>
+            <p class="lead mb-4">Planifiez facilement une collecte à domicile et contribuez à un monde plus durable.</p>
+            <div class="d-flex justify-content-center gap-3">
+              <% if user_signed_in? %>
+                <%= link_to "Prendre rendez-vous", new_appointment_path, class: "btn btn-success btn-lg" %>
+              <% else %>
+                <%= link_to "Créer un compte", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+                <%= link_to "Se connecter", new_user_session_path, class: "btn btn-outline-light btn-lg" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% end %>
 
     <!-- Main content -->
     <main class="container my-5 flex-grow-1">
