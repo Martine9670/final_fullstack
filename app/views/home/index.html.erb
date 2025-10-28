@@ -1,64 +1,60 @@
+<!-- 🌱 Contenu principal -->
 <div class="text-center">
   <h1 class="mb-3">Bienvenue sur la Ressourcerie en ligne 🌱</h1>
   <p class="lead mb-4">Facilitez vos dons en planifiant une collecte à domicile.</p>
 
-  <!-- 💰 Carte prix collecte -->
-  <div class="d-flex justify-content-center mb-4">
-    <div class="card shadow-sm border-success" style="max-width: 22rem;">
-      <div class="card-body">
-        <h5 class="card-title">Prix d’une collecte</h5>
-        <p class="card-text fs-4 fw-bold text-success mb-1">50,00 €</p>
-        <p class="text-muted mb-0">Tarif unique, sans surprise ! 
-        <br> 
-        “Ce tarif nous permet de financer la logistique et la remise en état des objets récupérés.”</p>
+<div class="container my-5">
+  <div class="d-flex flex-wrap justify-content-center gap-4">
+    
+<div class="container my-5">
+  <div class="row justify-content-center g-4">
+
+    <!-- 💰 Carte prix collecte -->
+    <div class="col-md-auto">
+      <div class="card shadow-sm border-success" style="width: 18rem;">
+        <div class="card-body text-center">
+          <h5 class="card-title">Prix d’une collecte</h5>
+          <p class="card-text fs-4 fw-bold text-success mb-1">50,00 €</p>
+          <p class="text-muted mb-0">
+            Tarif unique, sans surprise !<br>
+            “Ce tarif nous permet de financer la logistique et la remise en état des objets récupérés.”
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <% if user_signed_in? %>
-    <p class="mb-3">Connecté en tant que <strong><%= current_user.email %></strong></p>
-    <div class="d-flex justify-content-center gap-3">
-      <%= link_to "Prendre rendez-vous", new_appointment_path, class: "btn btn-primary" %>
-      <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
-    </div>
-  <% else %>
-    <div class="d-flex justify-content-center gap-3">
-      <%= link_to "Créer un compte", new_user_registration_path, class: "btn btn-success" %>
-      <%= link_to "Se connecter", new_user_session_path, class: "btn btn-outline-primary" %>
-    </div>
-  <% end %>
-</div>
+    <!-- 🌟 Carte Avis -->
+    <div class="col-md-auto">
+      <div class="card shadow-sm border-success" style="width: 28rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-3">Ils nous donnent leur avis 💬</h5>
+        
+          <div class="text-center mb-3">
+            <% if user_signed_in? %>
+              <%= link_to "Donner mon avis", new_review_path, class: "btn btn-primary btn-sm" %>
+              <hr>
+            <% else %>
+              <%= link_to "Connectez-vous pour donner votre avis", new_user_session_path, class: "btn btn-outline btn-sm" %>
+            <% end %>
+          </div>
+          <hr>
+          <% Review.order(created_at: :desc).limit(3).each do |review| %>
+            <div class="mb-2">
+              <h6 class="fw-bold"><%= review.title %></h6>
+              <p class="mb-1"><%= truncate(review.content, length: 60) %></p>
+              <p class="text-muted mb-1">⭐️ <%= review.rating %> / 5 — <%= review.user.email.split('@').first %></p>
+              <%= link_to "Lire plus", review_path(review), class: "btn btn-sm btn-outline" %>
+            </div>
+            <hr class="my-2">
+          <% end %>
 
-<!-- 🌟 Section Avis -->
-<div class="container my-5">
-  <h2 class="text-center mb-4">Ils nous donnent leur avis 💬</h2>
-  <div class="text-center mb-3">
-    <% if user_signed_in? %>
-      <%= link_to "Donner mon avis", new_review_path, class: "btn btn-primary" %>
-    <% else %>
-      <%= link_to "Connectez-vous pour donner votre avis", new_user_session_path, class: "btn btn-outline-secondary" %>
-    <% end %>
-  </div>
-
-  <div class="row justify-content-center">
-    <% Review.order(created_at: :desc).limit(3).each do |review| %>
-      <div class="col-md-4">
-        <div class="card mb-3 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title"><%= review.title %></h5>
-            <p class="card-text"><%= truncate(review.content, length: 100) %></p>
-            <p class="text-muted">⭐️ <%= review.rating %> / 5 — par <%= review.user.email.split('@').first %></p>
-            <%= link_to "Lire plus", review_path(review), class: "btn btn-sm btn-outline" %>
+          <div class="text-center mt-2">
+            <%= link_to "Voir tous les avis", reviews_path, class: "btn btn-outline-dark btn-sm" %>
           </div>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
 
-  <div class="text-center mt-4">
-    <%= link_to "Voir tous les avis", reviews_path, class: "btn btn-outline-dark" %>
   </div>
 </div>
-
-
 
