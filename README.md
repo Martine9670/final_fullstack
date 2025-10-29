@@ -4,7 +4,7 @@
 
 ## 🚀 Executive Summary
 
-This web application is designed for a **local reuse center**, making home donation collections easy and fully digital.
+This web application is designed for a **local reuse center**, making home donation pick up easy and fully digital.
 
 - **Users can book a collection slot online.**  
 - **Fixed fee:** €50 per collection, covering all logistical costs.
@@ -25,7 +25,7 @@ This web application is designed for a **local reuse center**, making home donat
 ## ✨ Key Features
 
 ### 1️⃣ Appointment Booking
-- Select date and time for home collection.  
+- Select date and time for home pick up.  
 - Real-time availability confirmation.
 
 ### 2️⃣ Payment
