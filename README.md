@@ -62,3 +62,7 @@ This application aims to become the central tool for managing donations at the r
 ## DB diagram
 
 ![db diagram](./readme_assets/diagramme%20bdd.png)
+
+## Trello
+
+https://trello.com/b/CQsLvaNh
