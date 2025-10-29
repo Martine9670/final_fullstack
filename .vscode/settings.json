@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "./storage/development.sqlite3",
+            "name": "development"
+        }
+    ]
+}
