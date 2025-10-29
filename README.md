@@ -15,7 +15,7 @@ This web application is designed for a **local reuse center**, making home donat
 
 **Main goals of the project:**
 
-- **Simplify the user experience:** Schedule a collection in just a few clicks.  
+- **Simplify the user experience:** Schedule a pick up in just a few clicks.  
 - **Optimize collection management:** Provide a centralized dashboard for the reuse center to track appointments.  
 - **Flexible payment options:** Users can pay online via Stripe.  
 - **Support the circular economy:** Encourage reuse of goods and reduce waste.
