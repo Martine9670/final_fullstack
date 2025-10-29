@@ -4,7 +4,7 @@
   <p>Bienvenue, <%= current_user.email %> 👋</p>
 
   <div class="row mt-4">
-    <!-- Section Utilisateurs -->
+    <!-- Users -->
     <div class="col-md-6">
       <h3>Utilisateurs</h3>
       <ul class="list-group">
@@ -22,13 +22,13 @@
       </ul>
     </div>
 
-    <!-- Section Rendez-vous -->
+    <!-- Appointments -->
     <div class="col-md-6">
       <h3>Rendez-vous</h3>
       <ul class="list-group list-group-flush">
         <% @appointments.each do |appt| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <!-- Partie cliquable vers show -->
+            <!-- Clickable to show -->
             <div>
               <%= link_to appointment_path(appt), class: "text-decoration-none text-dark" do %>
                 <strong><%= appt.date.strftime("%d/%m/%Y") %></strong> —
@@ -37,7 +37,7 @@
               <% end %>
             </div>
 
-            <!-- Badges + boutons -->
+            <!-- Badges + buttons -->
             <div class="d-flex align-items-center gap-2">
               <span class="badge 
                 <%= case appt.status

@@ -7,8 +7,8 @@ class ReviewsController < ApplicationController
   end
 
   def show
-    @comments = @review.comments.includes(:user) # 💬 Charger les commentaires existants
-    @comment = Comment.new                       # Préparer un nouveau commentaire
+    @comments = @review.comments.includes(:user) 
+    @comment = Comment.new 
   end
 
   def new

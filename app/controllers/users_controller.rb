@@ -1,10 +1,9 @@
-# app/controllers/users_controller.rb
 class UsersController < ApplicationController
-  before_action :authenticate_user!  # seuls les users connectés peuvent accéder
+  before_action :authenticate_user!
 
   # GET /user/edit
   def edit
-    @user = current_user  # récupère l'utilisateur connecté
+    @user = current_user
   end
 
   # PATCH/PUT /user
@@ -20,7 +19,6 @@ class UsersController < ApplicationController
 
   private
 
-  # On autorise uniquement les attributs modifiables par l'utilisateur
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end

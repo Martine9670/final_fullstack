@@ -1,4 +1,3 @@
-# app/controllers/appointments_controller.rb
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_appointment, only: [:show, :edit, :update, :destroy, :update_status]
@@ -6,7 +5,6 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments
   def index
-    # Les utilisateurs lambda ne voient que leurs RDV
     @appointments = current_user.admin? ? Appointment.all : current_user.appointments
   end
 
@@ -20,46 +18,45 @@ class AppointmentsController < ApplicationController
   end
 
   # POST /appointments
-# POST /appointments
-def create
-  @appointment = current_user.appointments.build(appointment_params)
-  @appointment.status = "pending" # obligatoire pour Stripe et dashboard admin
+  def create
+    @appointment = current_user.appointments.build(appointment_params)
+    @appointment.status = "pending"
 
-  if @appointment.save
-    # ✅ Debug optionnel : voir que le rendez-vous a été créé
-    Rails.logger.info "Rendez-vous créé avec ID #{@appointment.id}"
+    if @appointment.save
+      # ✅ Debug 
+      Rails.logger.info "Rendez-vous créé avec ID #{@appointment.id}"
 
-    # 🔹 Préparer la string start_time pour Stripe
-    start_time_str = @appointment.start_time ? @appointment.start_time.strftime("%H:%M") : "heure non définie"
+      # 🔹 start_time for Stripe
+      start_time_str = @appointment.start_time ? @appointment.start_time.strftime("%H:%M") : "heure non définie"
 
-    # 🔹 Création session Stripe
-    stripe_session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      mode: 'payment',
-      line_items: [{
-        price_data: {
-          currency: 'eur',
-          product_data: {
-            name: "Rendez-vous du #{@appointment.date.strftime('%d/%m/%Y')} à #{start_time_str}"
+      # 🔹 Create session Stripe
+      stripe_session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        mode: 'payment',
+        line_items: [{
+          price_data: {
+            currency: 'eur',
+            product_data: {
+              name: "Rendez-vous du #{@appointment.date.strftime('%d/%m/%Y')} à #{start_time_str}"
+            },
+            unit_amount: 5000 # 50 EUR
           },
-          unit_amount: 5000 # 50 EUR
-        },
-        quantity: 1
-      }],
-      success_url: success_payments_url(appointment_id: @appointment.id) + '?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: cancel_payments_url
-    )
+          quantity: 1
+        }],
+        success_url: success_payments_url(appointment_id: @appointment.id) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url: cancel_payments_url
+      )
 
-    # 🔹 Redirection immédiate vers Stripe
-    redirect_to stripe_session.url, allow_other_host: true
+      # 🔹 Redirect Stripe
+      redirect_to stripe_session.url, allow_other_host: true
 
-  else
-    # ❌ Affiche toutes les erreurs dans le log pour debug
-    Rails.logger.error "Erreur création RDV : #{@appointment.errors.full_messages.join(', ')}"
-    flash.now[:alert] = "Impossible de créer le rendez-vous : #{@appointment.errors.full_messages.join(', ')}"
-    render :new, status: :unprocessable_entity
+    else
+      # ❌ Log error for debug
+      Rails.logger.error "Erreur création RDV : #{@appointment.errors.full_messages.join(', ')}"
+      flash.now[:alert] = "Impossible de créer le rendez-vous : #{@appointment.errors.full_messages.join(', ')}"
+      render :new, status: :unprocessable_entity
+    end
   end
-end
 
 
   # GET /appointments/:id/edit
@@ -82,7 +79,7 @@ end
   end
 
   # PATCH /appointments/:id/update_status
-  # Exclusif aux admins
+  # Only for admins
   def update_status
     if @appointment.update(status: params[:status])
       redirect_to admin_dashboard_path, notice: "Statut mis à jour ✅"
@@ -94,7 +91,6 @@ end
   private
 
   def set_appointment
-    # ⚠️ Pour l’admin, accès à tous les RDV, sinon uniquement les siens
     @appointment = current_user.admin? ? Appointment.find(params[:id]) : current_user.appointments.find(params[:id])
   end
 

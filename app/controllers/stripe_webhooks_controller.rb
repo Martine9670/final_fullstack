@@ -19,7 +19,6 @@ class StripeWebhooksController < ApplicationController
       case event.type
       when 'checkout.session.completed'
         session = event.data.object
-        # Marquer l'appoinment comme payé ici
         appointment = Appointment.find_by(id: session.metadata.appointment_id)
         appointment.update(paid: true) if appointment
       end

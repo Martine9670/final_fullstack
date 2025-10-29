@@ -1,14 +1,11 @@
-# app/controllers/payments_controller.rb
 class PaymentsController < ApplicationController
   before_action :authenticate_user!
 
   # POST /payments
   def create
-    # 💡 Ici, on récupère le rendez-vous à payer.
-    # Adapte selon ton cas (dernier rendez-vous, ou choisi dans un formulaire)
     appointment = current_user.appointments.last
 
-    # ⚙️ Création de la session Stripe Checkout
+    # ⚙️ Create session Stripe Checkout
     session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
       mode: 'payment',
@@ -16,15 +13,15 @@ class PaymentsController < ApplicationController
         price_data: {
           currency: 'eur',
           product_data: { name: "Rendez-vous médical" },
-          unit_amount: 2000 # Montant en centimes : ici 20,00 €
+          unit_amount: 2000
         },
         quantity: 1
       }],
-      # ✅ URLs de redirection après paiement
+      # ✅ URLs after payment
       success_url: success_payments_url(appointment_id: appointment.id) + '?session_id={CHECKOUT_SESSION_ID}',
       cancel_url: cancel_payments_url
     )
-    # 🚀 Redirection vers la page de paiement Stripe
+    # 🚀 Redirect to payment Stripe
     redirect_to session.url, allow_other_host: true
 
   rescue Stripe::InvalidRequestError => e
@@ -37,7 +34,6 @@ class PaymentsController < ApplicationController
     appointment = current_user.appointments.find(params[:appointment_id])
     session_id = params[:session_id]
 
-    # Récupération de la session Stripe réelle
     stripe_session = Stripe::Checkout::Session.retrieve(session_id)
 
     if stripe_session.payment_status == 'paid'

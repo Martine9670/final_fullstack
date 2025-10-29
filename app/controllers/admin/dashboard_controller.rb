@@ -5,7 +5,7 @@ class Admin::DashboardController < ApplicationController
   def index
     @users = User.all
     @appointments = Appointment.all.order(date: :asc, start_time: :asc)
-    # Statistiques rapides
+    # Stats
     @total_users = User.count
     @total_admins = User.where(admin: true).count
     @total_appointments = Appointment.count

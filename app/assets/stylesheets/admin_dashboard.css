@@ -1,13 +1,13 @@
-/* ================================
-   DASHBOARD ADMIN – THEME MODERNE
-   ================================ */
+/* ===============
+   DASHBOARD ADMIN
+   ===============*/
 
 .admin-dashboard {
   font-family: "Segoe UI", Arial, sans-serif;
   color: #333;
 }
 
-/* Titres */
+/* Titles */
 .admin-dashboard h1 {
   color: #2e7d32;
   letter-spacing: 0.5px;
@@ -21,7 +21,7 @@
   margin-bottom: 1rem;
 }
 
-/* Cartes */
+/* Cards */
 .admin-dashboard .card {
   border-radius: 12px;
   overflow: hidden;
@@ -36,7 +36,7 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
-/* Header cartes */
+/* Header cards */
 .admin-dashboard .card-header {
   font-size: 1.1rem;
   padding: 0.75rem 1rem;
@@ -46,7 +46,7 @@
   text-align: center;
 }
 
-/* Listes avec zebra stripes */
+/* Lists zebra stripes */
 .admin-dashboard .list-group-item {
   border: none;
   border-bottom: 1px solid #e0e0d1;
@@ -78,7 +78,7 @@
   font-size: 0.85rem;
 }
 
-/* Boutons */
+/* Buttons */
 .admin-dashboard .btn-outline-green {
   border-color: #2e7d32;
   color: #2e7d32;
@@ -91,7 +91,7 @@
   color: #fff;
 }
 
-/* Icônes */
+/* Icons */
 .admin-dashboard .bi-person-circle,
 .admin-dashboard .bi-calendar-event,
 .admin-dashboard .bi-clock,
@@ -101,7 +101,7 @@
   color: #2e7d32;
 }
 
-/* Texte secondaire */
+/* Text secondary */
 .admin-dashboard .text-muted.small {
   font-size: 0.85rem;
 }
@@ -118,9 +118,9 @@
   }
 }
 
-/* ================================
-   STATISTIQUES RAPIDES – DASHBOARD MODERNE
-   ================================ */
+/* =====
+   STATS
+   =====*/
 
 .admin-dashboard .stats-row {
   display: flex;
@@ -148,7 +148,7 @@
 .admin-dashboard .stat-card .stat-number {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #198754; /* accent vert */
+  color: #198754;
   margin-top: 0.25rem;
 }
 
@@ -157,7 +157,7 @@
   color: #555;
 }
 
-/* ======== STATUTS RENDEZ-VOUS ======== */
+/* STATS APPOINTMENTS*/
 .badge.bg-warning.text-dark {
   background-color: #ffe082 !important;
 }

@@ -1,13 +1,13 @@
 <div class="container my-5 admin-dashboard">
-  <!-- Titre principal -->
+  <!-- Title -->
   <h1 class="mb-4 text-center text-success fw-bold">Tableau de bord Admin</h1>
 
-  <!-- Bienvenue -->
+  <!-- Welcome -->
   <p class="text-center text-muted">
     Bienvenue, <strong><%= current_user.email %></strong> 👋
   </p>
 
-  <!-- Statistiques rapides -->
+  <!-- Stats -->
   <div class="row mb-4 stats-row text-center">
     <div class="col-md-4 stat-card">
       <div class="stat-label">Utilisateurs</div>
@@ -23,10 +23,10 @@
     </div>
   </div>
 
-  <!-- Détail Utilisateurs et Rendez-vous -->
+  <!-- User and appointment -->
   <div class="row mt-4">
 
-    <!-- Utilisateurs -->
+    <!-- Users -->
     <div class="col-md-6">
       <div class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-success text-white fw-bold text-center">
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-<!-- Rendez-vous -->
+<!-- Appointments -->
     <div class="col-md-6">
       <div class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-primary text-white fw-bold text-center">
@@ -72,7 +72,7 @@
                 <span class="text-muted small">(<%= appt.user.email %>)</span>
               </div>
 
-              <!-- Badges + boutons -->
+              <!-- Badges + buttons -->
               <div class="d-flex align-items-center gap-2">
                 <span class="badge
                   <%= case appt.status

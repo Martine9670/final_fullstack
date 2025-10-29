@@ -1,21 +1,19 @@
-# config/environments/development.rb
-
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # 🌶️ Auto-reload du code sans redémarrer le serveur
+  # 🌶️ Auto-reload code without restarting the server
   config.enable_reloading = true
 
-  # 💡 Ne charge pas tout le code au démarrage
+  # 💡 Do not load all code at startup
   config.eager_load = false
 
-  # 👀 Affiche les erreurs complètes
+  # 👀 Show full error reports
   config.consider_all_requests_local = true
 
-  # ⏱️ Active le server timing
+  # ⏱️ Enable server timing
   config.server_timing = true
 
-  # 🚀 Caching local (désactivé par défaut)
+  # 🚀 Local caching (disabled by default)
   if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
@@ -26,22 +24,22 @@ Rails.application.configure do
     config.action_controller.perform_caching = false
   end
 
-  # 🧠 Stockage local pour ActiveStorage
+  # 🧠 Local storage for ActiveStorage
   config.active_storage.service = :local
 
-  # 💌 === CONFIGURATION MAILER ===
+  # 💌 === MAILER CONFIGURATION ===
 
-  # Utilise Gmail en mode SMTP (ou `letter_opener` en plan B)
+  # Use Gmail in SMTP mode (or `letter_opener` as a fallback)
   if ENV["USE_LETTER_OPENER"] == "true"
-    # Mode démo : les mails s’ouvrent dans le navigateur
+    # Demo mode: emails open directly in the browser
     config.action_mailer.delivery_method = :letter_opener
   else
-    # Mode réel : envoi via SMTP Gmail
+    # Production mode: send emails via Gmail SMTP
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
       address:              "smtp.gmail.com",
       port:                 587,
-      domain:               "gmail.com", # ou ton propre domaine (ex: "finalfullstack.fr")
+      domain:               "gmail.com", # or your own domain (e.g. "finalfullstack.fr")
       authentication:       "plain",
       enable_starttls_auto: true,
       user_name:            ENV["GMAIL_USERNAME"],
@@ -49,16 +47,16 @@ Rails.application.configure do
     }
   end
 
-  # Active l’envoi des mails
+  # Enable email delivery
   config.action_mailer.perform_deliveries = true
 
-  # Affiche les erreurs d’envoi dans la console/log
+  # Show email delivery errors in console/log
   config.action_mailer.raise_delivery_errors = true
 
-  # Indique l’hôte utilisé dans les liens des mails
+  # Define the host used in email links
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
-  # 💬 Logs et erreurs
+  # 💬 Logs and errors
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
   config.active_record.verbose_query_logs = true

@@ -11,7 +11,6 @@ class AdminMailer < ApplicationMailer
     )
   end
 
-  # Compatibilité avec l'ancien nom, en réutilisant explicitement le bon template
   def new_appointment_notification(appointment)
     @appointment = appointment
     @user = appointment.user

@@ -5,7 +5,7 @@
       <p class="card-text"><%= simple_format(@review.content) %></p>
       <p class="text-muted">⭐️ <%= @review.rating %> / 5 — par <%= @review.user.email.split('@').first %></p>
 
-      <!-- ❤️ Section Like -->
+      <!-- Like -->
       <% if user_signed_in? %>
         <%= button_to review_like_path(@review),
                       method: :post,
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <!-- 💬 Section Commentaires -->
+  <!-- Comments -->
   <div class="mt-4">
     <h4>Commentaires (<%= @review.comments.count %>)</h4>
 

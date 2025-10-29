@@ -8,7 +8,6 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 500 }
 
-  # Vérifie si un utilisateur a déjà liké ce commentaire (parent ou sous-commentaire)
   def liked_by?(user)
     comment_likes.exists?(user_id: user.id)
   end

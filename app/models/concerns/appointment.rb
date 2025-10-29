@@ -1,5 +1,3 @@
-# app/models/concerns/appointment.rb
-
 class Appointment < ApplicationRecord
   belongs_to :user
 
@@ -9,12 +7,12 @@ class Appointment < ApplicationRecord
 
   private
 
-  # Envoi des mails de confirmation, sans bloquer la transaction
+  # Email confirmation
   def send_emails
     begin
-      # Envoi au client
+      # User
       UserMailer.appointment_confirmation(self).deliver_now
-      # Envoi à l’admin
+      # Admin
       AdminMailer.new_appointment_notification(self).deliver_now
     rescue Net::SMTPAuthenticationError => e
       Rails.logger.error "❌ SMTP Auth error: #{e.message}"

@@ -9,7 +9,7 @@
  */
 
 
- /* Layout global */
+ /* Layout */
 
 body {
   font-family: Arial, sans-serif;
@@ -25,10 +25,9 @@ body {
 }
 
 .navbar-green {
-  background-color: #28a745; /* green color */
+  background-color: #28a745;
 }
 
-/* Optional: adjust link colors */
 .navbar-green .nav-link,
 .navbar-green .navbar-brand {
   color: white;
@@ -40,7 +39,7 @@ body {
 
 .site-main {
   padding: 2rem;
-  min-height: 70vh; /* pour que le footer reste en bas */
+  min-height: 70vh;
 }
 
 .site-footer {

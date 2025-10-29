@@ -6,9 +6,9 @@ class User < ApplicationRecord
 
   # 🌱 Relations
   has_many :appointments, dependent: :destroy
-  has_many :reviews, dependent: :destroy  # 👈 ajout de l'association avec les avis
+  has_many :reviews, dependent: :destroy 
 
-  # 🌟 Méthode utilitaire pour vérifier le statut admin
+  # Check admin statut
   def admin?
     self.admin == true
   end
