@@ -46,7 +46,7 @@ This web application is designed for a **local reuse center**, making home donat
 - **Society:** Contributes to the circular economy and reduces waste.
 
 ---
-
+\
 ## 👩‍💻 Project Team
 
 Developed by **Martine PINNA** and **Johann RUELLE**, collaborating via pair programming and task distribution.
@@ -58,3 +58,7 @@ Built with modern, robust, and secure technologies for scalability and maintaina
 ## 📌 Conclusion
 
 This application aims to become the central tool for managing donations at the reuse center, providing a smooth and intuitive user experience while supporting social and environmental impact.
+
+## DB diagram
+
+![db diagram](./readme_assets/diagramme%20bdd.png)
