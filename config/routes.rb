@@ -1,37 +1,36 @@
 Rails.application.routes.draw do
   namespace :admin do
+    # Dashboard (accessible via /admin/dashboard)
     get 'dashboard', to: 'dashboard#index'
     patch 'users/:id/toggle_admin', to: 'dashboard#toggle_admin', as: 'toggle_admin_user'
   end
 
-  # Routes Appointments
-  get "appointments/index"
-  get "appointments/show"
-  get "appointments/new"
-  get "appointments/edit"
+  # ✅ No more manual GET routes for appointments — handled automatically below
 
-  # Health check
+  # Health check (GET allowed)
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Page d’accueil
+  # Home page
   root "home#index"
 
-  # Authentification
+  # Authentication
   devise_for :users
 
-  # Webhook Stripe
+  # Stripe webhook (only POST allowed)
   post '/stripe/webhook', to: 'stripe_webhooks#receive'
 
-  # Ressources principales
+  # Main resources
   resources :comments
+
   resources :appointments do
     member do
       patch :update_status
     end
   end
+
   resource :user, only: [:edit, :update]
 
-  # Paiements Stripe
+  # Stripe (GET allowed here for redirect success/cancel)
   resources :payments, only: [:new, :create] do
     collection do
       get :success
@@ -39,13 +38,12 @@ Rails.application.routes.draw do
     end
   end
 
-  # 🌟 Ajout des avis (reviews) + likes + commentaires imbriqués
+  # Reviews + likes + nested comments
   resources :reviews, only: [:index, :show, :new, :create, :destroy] do
-    # Route pour liker/unliker un avis
+    # Route to like/unlike a review
     post "like", to: "likes#toggle"
 
-    # Routes pour les commentaires liés à un avis
+    # Routes for comments related to a review
     resources :comments, only: [:create]
   end
 end
-
