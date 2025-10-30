@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:content)
   end
 
-  # 🧩 Encapsulation de la logique d'autorisation
+  # Encapsulation of authorization logic
   def authorize_user!
     unless current_user == @comment.user || current_user.admin?
       redirect_to review_path(@review), alert: "⛔ Action non autorisée."
