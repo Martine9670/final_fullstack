@@ -8,7 +8,7 @@
           <%= form_for @appointment do |f| %>
             <div class="mb-3">
               <%= f.label :date, "Date du rendez-vous", class: "form-label" %>
-              <%= f.date_field :date, class: "form-control", required: true %>
+              <%= f.date_field :date, class: "form-control", required: true, min: Date.today %>
             </div>
 
             <div class="mb-3">
