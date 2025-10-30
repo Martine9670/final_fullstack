@@ -44,6 +44,6 @@ Rails.application.routes.draw do
     post "like", to: "likes#toggle"
 
     # Routes for comments related to a review
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :destroy]
   end
 end
