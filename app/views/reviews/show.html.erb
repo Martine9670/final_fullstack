@@ -31,6 +31,13 @@
         <div class="card-body">
           <p><%= comment.content %></p>
           <small class="text-muted">par <%= comment.user.email.split('@').first %></small>
+            <% if user_signed_in? && (comment.user == current_user || current_user.admin?) %>
+              <%= button_to "🗑 Supprimer",
+                            review_comment_path(@review, comment),
+                            method: :delete,
+                            data: { confirm: "Supprimer ce commentaire ?" },
+                            class: "btn btn-sm btn-danger mt-2" %>
+            <% end %>
         </div>
       </div>
     <% end %>
