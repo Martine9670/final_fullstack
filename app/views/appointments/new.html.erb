@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h2 class="card-title text-center mb-4">Prendre rendez-vous 📅</h2>
+          <h2 class="card-title text-center mb-4">📅 Prendre rendez-vous </h2>
 
           <%= form_for @appointment do |f| %>
             <div class="mb-3">
@@ -13,7 +13,11 @@
 
             <div class="mb-3">
               <%= f.label :start_time, "Heure du rendez-vous", class: "form-label" %>
-              <%= f.time_field :start_time, class: "form-control", required: true %>
+              <%= f.time_field :start_time,
+                    class: "form-control",
+                    required: true,
+                    value: f.object.start_time&.strftime("%H:%M"),
+                    min: (f.object.date == Date.today ? Time.current.strftime("%H:%M") : "00:00") %>
             </div>
 
             <div class="mb-3">
