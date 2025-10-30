@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-get "/cgu", to: "pages#cgu"
+  
+  get "/cgu", to: "pages#cgu"
+
   namespace :admin do
     # Dashboard (accessible via /admin/dashboard)
     get 'dashboard', to: 'dashboard#index'
