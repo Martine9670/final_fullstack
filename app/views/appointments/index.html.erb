@@ -8,14 +8,22 @@
           <div class="card shadow-sm border-success">
             <div class="card-body">
               <h5 class="card-title">Rendez-vous #<%= appointment.id %></h5>
-<p class="card-text">
-  Date : <strong><%= appointment.date.strftime("%d/%m/%Y") if appointment.date %></strong><br>
-  Heure : <strong><%= appointment.start_time.strftime("%H:%M") if appointment.start_time %></strong>
-</p>
+              <p class="card-text">
+                Date : <strong><%= appointment.date.strftime("%d/%m/%Y") if appointment.date %></strong><br>
+                Heure : <strong><%= appointment.start_time.strftime("%H:%M") if appointment.start_time %></strong>
+              </p>
               <div class="d-flex justify-content-between">
                 <%= link_to "Voir", appointment_path(appointment), class: "btn btn-sm btn-primary" %>
                 <%= link_to "Modifier", edit_appointment_path(appointment), class: "btn btn-sm btn-warning" %>
-                <%= button_to "Supprimer", appointment_path(appointment), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-sm btn-danger" %>
+
+                <form action="<%= appointment_path(appointment) %>" method="post" data-turbo="false" class="d-inline">
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="btn btn-sm btn-danger"
+                          onclick="return confirm('Êtes-vous sûr·e de vouloir supprimer ce rendez-vous ?');">
+                    Supprimer
+                  </button>
+                </form>
               </div>
             </div>
           </div>
@@ -23,7 +31,9 @@
       <% end %>
     </div>
   <% else %>
-    <p class="text-center">Vous n'avez pas encore de rendez-vous. <%= link_to "Prendre un rendez-vous", new_appointment_path, class: "btn btn-success" %></p>
+    <p class="text-center">
+      Vous n'avez pas encore de rendez-vous. 
+      <%= link_to "Prendre un rendez-vous", new_appointment_path, class: "btn btn-success" %>
+    </p>
   <% end %>
 </div>
-
