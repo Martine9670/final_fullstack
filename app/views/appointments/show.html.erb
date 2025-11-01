@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h2 class="card-title text-center mb-4">Détails du rendez-vous 📅</h2>
+          <h2 class="card-title text-center mb-4">📅 Détails du rendez-vous </h2>
 
           <p><strong>Date :</strong> <%= @appointment.date.strftime("%d/%m/%Y") if @appointment.date %></p>
           <p><strong>Heure :</strong> <%= @appointment.start_time.strftime("%H:%M") if @appointment.start_time %></p>
