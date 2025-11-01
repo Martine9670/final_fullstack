@@ -18,6 +18,7 @@
     <%= stylesheet_link_tag "hero", media: "all", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "registration", media: "all", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "session", media: "all", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "devise", media: "all", "data-turbo-track": "reload" %>
 
 
     <%= javascript_importmap_tags %>
@@ -46,7 +47,7 @@
               <% end %>
 
               <% if user_signed_in? %>
-                <li class="nav-item"><%= link_to "Mon profil", edit_user_path, class: "nav-link" %></li>
+                <li class="nav-item"><%= link_to "Mon profil", edit_user_registration_path, class: "nav-link" %></li>
                 <li class="nav-item"><%= link_to "Mes rendez-vous", appointments_path, class: "nav-link" %></li>
                 <li class="nav-item"><%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "nav-link" %></li>
               <% else %>
